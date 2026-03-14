@@ -1,12 +1,14 @@
 /* ═══════════════════════════════════════════════════
    GRUPO DEN — main.js
-   Navbar scroll · Mobile menu · Scroll reveal
    ═══════════════════════════════════════════════════ */
 
 (function () {
   'use strict';
 
-  /* ── Navbar ─────────────────────────────────────── */
+  /* ── Activar animaciones ─────────────────────────── */
+  document.documentElement.classList.add('js-ready');
+
+  /* ── Navbar scroll shadow ────────────────────────── */
   const navbar  = document.getElementById('navbar');
   const toggle  = document.getElementById('navToggle');
   const navList = document.getElementById('navList');
@@ -17,6 +19,7 @@
     }, { passive: true });
   }
 
+  /* ── Mobile menu ─────────────────────────────────── */
   if (toggle && navList) {
     toggle.addEventListener('click', () => {
       const open = navList.classList.toggle('open');
@@ -32,6 +35,15 @@
         toggle.setAttribute('aria-expanded', 'false');
       });
     });
+
+    // Cerrar al hacer click fuera del menú
+    document.addEventListener('click', (e) => {
+      if (!navbar.contains(e.target) && navList.classList.contains('open')) {
+        navList.classList.remove('open');
+        toggle.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+      }
+    });
   }
 
   /* ── Scroll Reveal ───────────────────────────────── */
@@ -45,11 +57,10 @@
           io.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.10, rootMargin: '0px 0px -40px 0px' });
+    }, { threshold: 0.08, rootMargin: '0px 0px -20px 0px' });
 
     revealEls.forEach(el => io.observe(el));
   } else {
-    // Fallback para browsers sin soporte
     revealEls.forEach(el => el.classList.add('visible'));
   }
 

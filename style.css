@@ -123,24 +123,42 @@ body {
 .nav-toggle.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
 
 @media (max-width: 768px) {
-  .nav-toggle { display: flex; }
+  .nav-toggle { display: flex; z-index: 201; }
   .nav-links {
     position: fixed;
     top: 72px; left: 0; right: 0;
     background: var(--surface);
     border-bottom: 1px solid var(--border);
     flex-direction: column; gap: 0;
-    padding: 8px 0 16px;
+    padding: 8px 0 20px;
     transform: translateY(-110%);
-    transition: transform 0.35s var(--ease-out);
+    opacity: 0;
+    pointer-events: none;
+    visibility: hidden;
+    transition: transform 0.35s var(--ease-out), opacity 0.25s, visibility 0.35s;
     box-shadow: 0 16px 40px rgba(0,0,0,0.08);
+    z-index: 199;
   }
-  .nav-links.open { transform: translateY(0); }
+  .nav-links.open {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: all;
+    visibility: visible;
+  }
   .nav-links li a {
     display: block;
-    padding: 14px var(--gutter);
-    font-size: 13px;
+    padding: 16px var(--gutter);
+    font-size: 14px;
+    letter-spacing: 0.12em;
+    border-bottom: 1px solid var(--border);
   }
+  .nav-links li:last-child a { border-bottom: none; }
+  .navbar { padding: 0 20px; }
+}
+
+@media (max-width: 480px) {
+  .nav-logo-text small { display: none; }
+  .nav-logo-text strong { font-size: 15px; }
 }
 
 /* ─── HERO BASE ───────────────────────────────────────────── */
@@ -429,67 +447,3 @@ body {
   transition: color 0.2s; margin-left: 8px;
 }
 .footer-social a:hover { color: var(--red); }
-
-/* ═══════════════════════════════════════════════════════════
-   RESPONSIVE FIXES
-   ═══════════════════════════════════════════════════════════ */
-
-/* ─── NAVBAR MOBILE ──────────────────────────────────────── */
-@media (max-width: 480px) {
-  .nav-logo-text small { display: none; }
-  .nav-logo-text strong { font-size: 15px; }
-  .navbar { padding: 0 20px; }
-}
-
-/* ─── HERO ───────────────────────────────────────────────── */
-@media (max-width: 768px) {
-  .page-hero { min-height: 60vh; }
-  .hero-body {
-    padding: 48px 24px 40px;
-  }
-  .hero-body h1 { font-size: clamp(36px, 10vw, 60px); margin-bottom: 16px; }
-  .hero-body p  { font-size: 14px; }
-  .hero-bar     { display: none; }
-}
-
-/* ─── HOME HERO ──────────────────────────────────────────── */
-@media (max-width: 768px) {
-  .home-hero-content {
-    padding: 48px 24px 40px !important;
-  }
-  .home-hero h1 { font-size: clamp(40px, 12vw, 72px) !important; line-height: 1.0; }
-  .home-hero p  { font-size: 14px; max-width: 100%; }
-  .home-hero-ctas { flex-direction: column; gap: 10px; }
-  .home-hero-ctas .btn { width: 100%; justify-content: center; }
-  .scroll-indicator { display: none; }
-}
-
-/* ─── SECTIONS ───────────────────────────────────────────── */
-@media (max-width: 768px) {
-  .section { padding: 56px 24px; }
-  .section-title { font-size: clamp(28px, 8vw, 44px); }
-}
-
-/* ─── PROCESS STRIP ──────────────────────────────────────── */
-@media (max-width: 480px) {
-  .process-step { padding: 20px 24px; }
-  .step-num { font-size: 22px; }
-}
-
-/* ─── BUTTONS ────────────────────────────────────────────── */
-@media (max-width: 480px) {
-  .btn { padding: 13px 22px; font-size: 10.5px; }
-}
-
-/* ─── FOOTER ─────────────────────────────────────────────── */
-@media (max-width: 480px) {
-  .footer-main { padding: 48px 24px 40px; gap: 32px; }
-  .footer-bottom { padding: 16px 24px; flex-direction: column; align-items: flex-start; gap: 8px; }
-  .footer-copy { font-size: 11px; }
-}
-
-/* ─── SECTION HEADER (usado en contacto) ────────────────── */
-@media (max-width: 768px) {
-  .section-header { flex-direction: column; align-items: flex-start; gap: 16px; margin-bottom: 40px; }
-  .section-header-right { max-width: 100%; }
-}
