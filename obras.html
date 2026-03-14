@@ -202,6 +202,20 @@
       font-size: 12px; color: rgba(255,255,255,0.45);
       font-weight: 300; white-space: nowrap;
     }
+
+    /* ── RESPONSIVE FIXES OBRAS ─────────────────────── */
+    @media (max-width: 768px) {
+      .obras-section { padding: 32px 24px; }
+      .obras-cta-section { flex-direction: column; align-items: flex-start; padding: 48px 24px; }
+      .obras-cta-section .btn { width: 100%; justify-content: center; }
+      .stats-strip { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 480px) {
+      .obra-card { padding-bottom: 80%; }
+      .obra-card--tall { height: 280px; }
+      .stats-strip { grid-template-columns: 1fr 1fr; }
+      .stat-item { padding: 24px 20px; }
+    }
   </style>
 </head>
 <body>

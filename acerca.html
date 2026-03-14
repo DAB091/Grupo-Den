@@ -274,6 +274,27 @@
       text-transform: uppercase; color: rgba(255,255,255,0.55);
       font-family: var(--font-body);
     }
+
+    /* ── RESPONSIVE FIXES ACERCA ────────────────────── */
+    @media (max-width: 860px) {
+      .historia-grid { grid-template-columns: 1fr; gap: 32px; }
+      .historia-img-wrap { order: 0; }
+      .historia-img-wrap img { aspect-ratio: 16/9; }
+      .historia-year { top: auto; right: 0; bottom: 0; }
+    }
+    @media (max-width: 768px) {
+      .den-section { padding: 56px 24px; }
+      .den-header { margin-bottom: 40px; }
+      .den-card { padding: 32px 28px; }
+      .mv-grid { grid-template-columns: 1fr; margin-top: 32px; }
+      .objetivo-grid { grid-template-columns: 1fr; gap: 32px; }
+      .valores-list { grid-template-columns: 1fr 1fr; }
+      .acerca-cta { flex-direction: column; align-items: flex-start; padding: 48px 24px; }
+    }
+    @media (max-width: 480px) {
+      .valores-list { grid-template-columns: 1fr; }
+      .den-grid { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>

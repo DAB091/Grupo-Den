@@ -236,6 +236,24 @@
     .whatsapp-float svg {
       width: 26px; height: 26px; fill: #fff;
     }
+
+    /* ── RESPONSIVE FIXES CONTACTO ──────────────────── */
+    @media (max-width: 960px) {
+      .contact-layout { grid-template-columns: 1fr; }
+      .contact-sidebar { position: static; }
+    }
+    @media (max-width: 768px) {
+      .contact-section { padding: 48px 24px; }
+      .sidebar-card { padding: 28px 24px; }
+      .sidebar-social { padding: 16px 24px; }
+      .fields-check { grid-template-columns: 1fr; }
+      .form-intro-box { padding: 16px 18px; }
+      .gform-wrapper .gform-topbar { padding: 14px 18px; }
+    }
+    @media (max-width: 480px) {
+      .privacy-note { padding: 12px 14px; }
+      .process-list-item { padding: 12px 0; }
+    }
   </style>
 </head>
 <body>

@@ -292,6 +292,26 @@
       text-transform: uppercase; color: rgba(255,255,255,0.6);
       font-family: var(--font-body);
     }
+
+    /* ── RESPONSIVE FIXES INDEX ─────────────────────── */
+    @media (max-width: 860px) {
+      .intro-grid { grid-template-columns: 1fr; }
+      .intro-img-wrap { order: -1; }
+      .intro-img-wrap img { aspect-ratio: 16/9; }
+      .intro-img-tag { position: static; display: inline-block; margin-top: -4px; }
+    }
+    @media (max-width: 768px) {
+      .services-grid { grid-template-columns: 1fr 1fr; }
+      .service-card { padding: 24px 20px; }
+    }
+    @media (max-width: 480px) {
+      .services-grid { grid-template-columns: 1fr; }
+      .obras-preview-grid { grid-template-columns: 1fr; grid-template-rows: auto; }
+      .obra-thumb--featured { grid-row: auto; grid-column: auto; min-height: 220px; }
+      .obra-thumb { min-height: 220px; }
+      .valores-grid { grid-template-columns: 1fr 1fr; }
+      .cta-band { padding: 40px 24px; }
+    }
   </style>
 </head>
 <body>
