@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Contactá a Grupo DEN — Evaluación inicial gratuita para tu proyecto. Victoria, Entre Ríos." />
+  <title>Contacto | Grupo DEN</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* ── CONTACTO-SPECIFIC ───────────────────────────── */
+
+    /* Main layout */
+    .contact-section { padding: clamp(64px,9vw,120px) var(--gutter); }
+
+    .contact-layout {
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+    @media (max-width: 960px) { .contact-layout { grid-template-columns: 1fr; } }
+
+    /* ─ Sidebar ──── */
+    .contact-sidebar { position: sticky; top: 92px; }
+
+    .sidebar-card {
+      background: var(--ink);
+      padding: 40px 36px;
+    }
+    .sidebar-tag {
+      font-size: 9.5px; letter-spacing: 0.25em;
+      text-transform: uppercase; color: var(--gold);
+      font-weight: 600; margin-bottom: 20px; display: block;
+    }
+    .sidebar-card h3 {
+      font-family: var(--font-display);
+      font-size: 28px; font-weight: 300;
+      color: #fff; line-height: 1.2; margin-bottom: 16px;
+    }
+    .sidebar-card > p {
+      font-size: 13px; color: rgba(255,255,255,0.46);
+      font-weight: 300; line-height: 1.8;
+    }
+    .sidebar-divider {
+      height: 1px; background: rgba(255,255,255,0.08);
+      margin: 28px 0;
+    }
+
+    .contact-item {
+      display: flex; align-items: flex-start;
+      gap: 14px; margin-bottom: 18px;
+    }
+    .contact-item:last-child { margin-bottom: 0; }
+    .ci-icon {
+      width: 32px; height: 32px; flex-shrink: 0;
+      border: 1px solid rgba(255,255,255,0.10);
+      display: flex; align-items: center; justify-content: center;
+      margin-top: 1px;
+    }
+    .ci-icon svg {
+      width: 13px; height: 13px; stroke: var(--gold);
+      fill: none; stroke-width: 1.5;
+      stroke-linecap: round; stroke-linejoin: round;
+    }
+    .ci-detail strong {
+      display: block; font-size: 9.5px;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      color: rgba(255,255,255,0.28); font-weight: 500; margin-bottom: 3px;
+    }
+    .ci-detail a, .ci-detail span {
+      font-size: 13px; color: rgba(255,255,255,0.62);
+      text-decoration: none; font-weight: 300;
+      line-height: 1.6; transition: color 0.2s; display: block;
+    }
+    .ci-detail a:hover { color: var(--gold); }
+
+    .sidebar-social {
+      background: #181818;
+      padding: 18px 36px;
+      display: flex; align-items: center;
+      justify-content: space-between;
+    }
+    .sidebar-social span {
+      font-size: 9.5px; letter-spacing: 0.20em;
+      text-transform: uppercase; color: rgba(255,255,255,0.28);
+    }
+    .sidebar-social a {
+      font-size: 12.5px; color: rgba(255,255,255,0.46);
+      text-decoration: none; font-weight: 300;
+      transition: color 0.2s;
+    }
+    .sidebar-social a:hover { color: var(--red); }
+
+    /* ─ Process steps (sidebar) ──── */
+    .process-list { margin-top: 32px; }
+    .process-list-title {
+      font-size: 9.5px; letter-spacing: 0.22em;
+      text-transform: uppercase; color: rgba(255,255,255,0.28);
+      font-weight: 500; margin-bottom: 16px;
+    }
+    .process-list-item {
+      display: flex; align-items: flex-start; gap: 14px;
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .process-list-item:last-child { border-bottom: none; }
+    .pl-num {
+      font-family: var(--font-display); font-size: 20px;
+      font-weight: 300; color: rgba(255,255,255,0.18); flex-shrink: 0;
+      line-height: 1; margin-top: 1px;
+    }
+    .pl-text strong {
+      display: block; font-size: 11.5px; font-weight: 500;
+      color: rgba(255,255,255,0.72); margin-bottom: 3px;
+    }
+    .pl-text p {
+      font-size: 12px; color: rgba(255,255,255,0.36);
+      font-weight: 300; line-height: 1.5;
+    }
+
+    /* ─ Form panel ──── */
+    .form-panel {}
+
+    .form-header { margin-bottom: 32px; }
+    .form-intro-box {
+      border-left: 2px solid var(--red);
+      padding: 18px 24px;
+      background: rgba(192,39,30,0.04);
+      margin-bottom: 28px;
+    }
+    .form-intro-box p {
+      font-size: 14px; color: var(--ink-soft);
+      font-weight: 300; line-height: 1.8;
+    }
+    .form-intro-box p strong { font-weight: 600; color: var(--ink); }
+
+    /* Checklist of fields */
+    .fields-check {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 10px; margin-bottom: 32px;
+    }
+    @media (max-width: 600px) { .fields-check { grid-template-columns: 1fr; } }
+
+    .field-check-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 12px 16px;
+      background: var(--white); border: 1px solid var(--border);
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .field-check-item:hover {
+      border-color: var(--border-strong);
+      box-shadow: 0 2px 14px rgba(0,0,0,0.05);
+    }
+    .fci-box {
+      width: 18px; height: 18px; flex-shrink: 0;
+      border: 1.5px solid var(--red);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .fci-box svg {
+      width: 10px; height: 10px; stroke: var(--red);
+      fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round;
+    }
+    .field-check-item span {
+      font-size: 12.5px; font-weight: 400; color: var(--ink-soft);
+    }
+
+    /* Google Form wrapper */
+    .gform-wrapper {
+      background: var(--white);
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+    .gform-topbar {
+      padding: 18px 24px;
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center;
+      justify-content: space-between;
+      background: var(--white);
+    }
+    .gform-topbar-left {
+      display: flex; align-items: center; gap: 10px;
+    }
+    .gform-dot { width: 8px; height: 8px; background: var(--red); flex-shrink: 0; }
+    .gform-title {
+      font-size: 11px; letter-spacing: 0.16em;
+      text-transform: uppercase; font-weight: 600; color: var(--ink);
+    }
+    .gform-badge {
+      font-size: 9.5px; letter-spacing: 0.10em;
+      text-transform: uppercase; font-weight: 500;
+      color: var(--ink-muted);
+      border: 1px solid var(--border-strong);
+      padding: 4px 10px;
+    }
+    .gform-iframe {
+      display: block; width: 100%;
+      min-height: 820px; border: none;
+    }
+
+    /* Privacy note */
+    .privacy-note {
+      display: flex; align-items: flex-start; gap: 12px;
+      margin-top: 18px; padding: 14px 18px;
+      border: 1px solid var(--border);
+      background: rgba(14,14,14,0.02);
+    }
+    .privacy-note svg {
+      width: 13px; height: 13px; stroke: var(--ink-muted);
+      fill: none; stroke-width: 1.5;
+      stroke-linecap: round; stroke-linejoin: round;
+      flex-shrink: 0; margin-top: 2px;
+    }
+    .privacy-note p {
+      font-size: 11.5px; color: var(--ink-muted);
+      font-weight: 300; line-height: 1.65;
+    }
+
+    /* ─ WhatsApp floating btn ──── */
+    .whatsapp-float {
+      position: fixed; bottom: 28px; right: 28px; z-index: 300;
+      width: 52px; height: 52px;
+      background: #25D366;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 20px rgba(37,211,102,0.4);
+      text-decoration: none;
+      transition: transform 0.25s var(--ease-out), box-shadow 0.25s;
+    }
+    .whatsapp-float:hover {
+      transform: scale(1.08);
+      box-shadow: 0 6px 28px rgba(37,211,102,0.5);
+    }
+    .whatsapp-float svg {
+      width: 26px; height: 26px; fill: #fff;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─── NAVBAR ─────────────────────────────────────────── -->
+  <nav class="navbar" id="navbar">
+    <a href="index.html" class="nav-logo" aria-label="Grupo DEN inicio">
+      <div class="nav-logo-mark"><span>GD</span></div>
+      <div class="nav-logo-text">
+        <strong>GrupoDen</strong>
+        <small>Propiedades y Desarrollo</small>
+      </div>
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="Menú" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navList">
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="obras.html">Obras</a></li>
+      <li><a href="acerca.html">Nosotros</a></li>
+      <li><a href="contacto.html" class="active">Contacto</a></li>
+    </ul>
+  </nav>
+
+  <!-- ─── HERO ──────────────────────────────────────────── -->
+  <header class="page-hero">
+    <div class="hero-grid-bg"></div>
+    <div class="hero-overlay"></div>
+    <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1600&q=80&auto=format&fit=crop" alt="" class="hero-img" />
+    <div class="hero-bar"></div>
+    <div class="hero-body">
+      <div class="eyebrow">
+        <span class="eyebrow-line"></span>
+        <span>Evaluación de proyectos</span>
+      </div>
+      <h1>Hablemos de<br /><em>tu proyecto</em></h1>
+      <p>Antes de elaborar un presupuesto realizamos una evaluación inicial para conocer tu idea y asignarte el equipo adecuado.</p>
+    </div>
+  </header>
+
+  <!-- ─── PROCESS STRIP ─────────────────────────────────── -->
+  <div class="process-strip">
+    <div class="process-inner">
+      <div class="process-step">
+        <span class="step-num">01</span>
+        <div class="step-text">
+          <strong>Evaluación inicial</strong>
+          <p>Completás el formulario con los datos de tu proyecto.</p>
+        </div>
+      </div>
+      <div class="process-step">
+        <span class="step-num">02</span>
+        <div class="step-text">
+          <strong>Análisis interno</strong>
+          <p>Estudiamos la viabilidad y alcance de la obra.</p>
+        </div>
+      </div>
+      <div class="process-step">
+        <span class="step-num">03</span>
+        <div class="step-text">
+          <strong>Reunión de proyecto</strong>
+          <p>Agendamos un encuentro para elaborar el presupuesto.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── CONTACT MAIN ───────────────────────────────────── -->
+  <section class="contact-section">
+    <div class="contact-layout">
+
+      <!-- SIDEBAR -->
+      <aside class="contact-sidebar">
+        <div class="sidebar-card reveal">
+          <span class="sidebar-tag">Contacto directo</span>
+          <h3>Estamos en Victoria, Entre Ríos</h3>
+          <p>Si preferís no usar el formulario, podés comunicarte directamente con nosotros.</p>
+          <div class="sidebar-divider"></div>
+
+          <div class="contact-item">
+            <div class="ci-icon">
+              <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.09 9.81 19.79 19.79 0 01.06 1.18 2 2 0 012.03 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z"/></svg>
+            </div>
+            <div class="ci-detail">
+              <strong>Teléfonos</strong>
+              <a href="tel:+5493436619727">+54 9 3436 619727</a>
+              <a href="tel:+5493436414641">+54 9 3436 414641</a>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <div class="ci-icon">
+              <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <div class="ci-detail">
+              <strong>Email</strong>
+              <a href="/cdn-cgi/l/email-protection#31525e5f455052455e564344415e55545f71565c50585d1f525e5c"><span class="__cf_email__" data-cfemail="8be8e4e5ffeae8ffe4ecf9fefbe4efeee5cbece6eae2e7a5e8e4e6">[email&#160;protected]</span></a>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <div class="ci-icon">
+              <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div class="ci-detail">
+              <strong>Ubicación</strong>
+              <span>Victoria, Entre Ríos</span>
+            </div>
+          </div>
+
+          <div class="sidebar-divider"></div>
+          <div class="process-list">
+            <div class="process-list-title">Por qué hacemos una evaluación previa</div>
+            <div class="process-list-item">
+              <span class="pl-num">01</span>
+              <div class="pl-text">
+                <strong>Proyectos a medida</strong>
+                <p>Cada obra es única. Conocerte nos permite asignarte el equipo ideal.</p>
+              </div>
+            </div>
+            <div class="process-list-item">
+              <span class="pl-num">02</span>
+              <div class="pl-text">
+                <strong>Presupuesto preciso</strong>
+                <p>Sin información básica no podemos darte un número real.</p>
+              </div>
+            </div>
+            <div class="process-list-item">
+              <span class="pl-num">03</span>
+              <div class="pl-text">
+                <strong>Sin compromisos</strong>
+                <p>Completar el formulario no implica contratar. Es solo el primer paso.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sidebar-social reveal reveal-d1">
+          <span>Instagram</span>
+          <a href="https://instagram.com/grupo.den" target="_blank" rel="noopener">@grupo.den</a>
+        </div>
+      </aside>
+
+      <!-- FORM PANEL -->
+      <div class="form-panel">
+
+        <div class="form-header reveal">
+          <div class="section-label" style="margin-bottom:14px;">
+            <span class="section-label-dot"></span>
+            <span>Inicio del proceso</span>
+          </div>
+          <h2 class="section-title" style="margin-bottom:8px;">Evaluación inicial <em>del proyecto</em></h2>
+        </div>
+
+        <div class="form-intro-box reveal reveal-d1">
+          <p>Para garantizar la calidad de cada obra, realizamos una <strong>breve evaluación previa</strong> antes de elaborar un presupuesto. Esto nos permite dedicarle a tu proyecto la atención que se merece.</p>
+        </div>
+
+        <div class="fields-check reveal reveal-d2">
+          <div class="field-check-item">
+            <div class="fci-box"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>
+            <span>Tipo de obra</span>
+          </div>
+          <div class="field-check-item">
+            <div class="fci-box"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>
+            <span>Superficie aproximada</span>
+          </div>
+          <div class="field-check-item">
+            <div class="fci-box"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>
+            <span>Ubicación del proyecto</span>
+          </div>
+          <div class="field-check-item">
+            <div class="fci-box"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>
+            <span>Presupuesto estimado</span>
+          </div>
+          <div class="field-check-item">
+            <div class="fci-box"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>
+            <span>Fecha estimada de inicio</span>
+          </div>
+          <div class="field-check-item">
+            <div class="fci-box"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>
+            <span>Datos de contacto</span>
+          </div>
+        </div>
+
+        <!-- GOOGLE FORM EMBED -->
+        <div class="gform-wrapper reveal reveal-d3">
+          <div class="gform-topbar">
+            <div class="gform-topbar-left">
+              <div class="gform-dot"></div>
+              <span class="gform-title">Formulario de evaluación</span>
+            </div>
+            <span class="gform-badge">Seguro · Privado</span>
+          </div>
+          <!--
+            ╔══════════════════════════════════════════════════════════╗
+            ║  REEMPLAZÁ EL SRC DEL IFRAME CON TU GOOGLE FORM         ║
+            ║                                                          ║
+            ║  Pasos:                                                  ║
+            ║  1. Abrí tu Google Form                                  ║
+            ║  2. Clic en "Enviar" (ícono de avión)                    ║
+            ║  3. Pestaña "<>" (Incorporar HTML)                       ║
+            ║  4. Copiá solo la URL del src                            ║
+            ║  5. Pegala abajo reemplazando el texto de ejemplo        ║
+            ║                                                          ║
+            ║  Formato del src:                                        ║
+            ║  https://docs.google.com/forms/d/e/TU_ID/viewform       ║
+            ║  ?embedded=true                                          ║
+            ╚══════════════════════════════════════════════════════════╝
+          -->
+          <iframe
+            class="gform-iframe"
+            src="https://docs.google.com/forms/d/e/REEMPLAZAR_CON_TU_ID_DE_GOOGLE_FORM/viewform?embedded=true"
+            title="Formulario de evaluación inicial del proyecto — Grupo DEN"
+            loading="lazy"
+          >
+            Cargando formulario…
+          </iframe>
+        </div>
+
+        <div class="privacy-note reveal reveal-d4">
+          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <p>Tu información es tratada de forma confidencial. Los datos se utilizan únicamente para analizar tu proyecto y elaborar una propuesta personalizada. No compartimos tu información con terceros.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ─────────────────────────────────────────── -->
+  <footer class="site-footer">
+    <div class="footer-main">
+      <div class="footer-brand">
+        <a href="index.html" class="footer-logo">
+          <div class="footer-logo-mark"><span>GD</span></div>
+          <div class="footer-logo-text">
+            <strong>GrupoDen</strong>
+            <small>Propiedades y Desarrollo</small>
+          </div>
+        </a>
+        <p>Diseño, ejecución y desarrollo inmobiliario en Victoria, Entre Ríos.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Páginas</div>
+        <ul class="footer-links">
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="obras.html">Obras realizadas</a></li>
+          <li><a href="acerca.html">Nosotros</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Contacto</div>
+        <div class="footer-contact-item">
+          <div class="fc-icon">
+            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.09 9.81 19.79 19.79 0 01.06 1.18 2 2 0 012.03 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z"/></svg>
+          </div>
+          <div>
+            <a href="tel:+5493436619727">+54 9 3436 619727</a><br />
+            <a href="tel:+5493436414641">+54 9 3436 414641</a>
+          </div>
+        </div>
+        <div class="footer-contact-item">
+          <div class="fc-icon">
+            <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <a href="/cdn-cgi/l/email-protection#d8bbb7b6acb9bbacb7bfaaada8b7bcbdb698bfb5b9b1b4f6bbb7b5"><span class="__cf_email__" data-cfemail="03606c6d776260776c647176736c67666d43646e626a6f2d606c6e">[email&#160;protected]</span></a>
+        </div>
+        <div class="footer-contact-item">
+          <div class="fc-icon">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <span>Victoria, Entre Ríos</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2025 Grupo DEN S.A. · <a href="/cdn-cgi/l/email-protection#14777b7a607577607b736661647b70717a547379757d783a777b79"><span class="__cf_email__" data-cfemail="086b67667c696b7c676f7a7d78676c6d66486f65696164266b6765">[email&#160;protected]</span></a></p>
+      <div class="footer-social">
+        <span>Instagram</span>
+        <a href="https://instagram.com/grupo.den" target="_blank" rel="noopener">@grupo.den</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ─── WHATSAPP FLOAT ─────────────────────────────────── -->
+  <!--
+    Reemplazá el número en el href con el número de WhatsApp real
+    Formato: https://wa.me/549XXXXXXXXXX (sin espacios ni guiones)
+  -->
+  <a href="https://wa.me/5493436619727?text=Hola%2C%20me%20interesa%20iniciar%20un%20proyecto%20con%20Grupo%20DEN."
+     class="whatsapp-float"
+     target="_blank" rel="noopener"
+     aria-label="Contactar por WhatsApp">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.3    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2025 Grupo DEN S.A. &middot; <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#99;&#111;&#110;&#116;&#97;&#99;&#116;&#111;&#103;&#114;&#117;&#112;&#111;&#100;&#101;&#110;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">&#99;&#111;&#110;&#116;&#97;&#99;&#116;&#111;&#103;&#114;&#117;&#112;&#111;&#100;&#101;&#110;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a></p>
+      <div class="footer-social">
+        <span>Instagram</span>
+        <a href="https://instagram.com/grupo.den" target="_blank" rel="noopener">@grupo.den</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+  (function(){
+    'use strict';
+    document.documentElement.classList.add('js-ready');
+    var navbar=document.getElementById('navbar');
+    var toggle=document.getElementById('navToggle');
+    var navList=document.getElementById('navList');
+    if(navbar){window.addEventListener('scroll',function(){navbar.classList.toggle('scrolled',window.scrollY>20);},{passive:true});}
+    if(toggle&&navList){
+      toggle.addEventListener('click',function(){var o=navList.classList.toggle('open');toggle.classList.toggle('open',o);toggle.setAttribute('aria-expanded',String(o));});
+      navList.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){navList.classList.remove('open');toggle.classList.remove('open');toggle.setAttribute('aria-expanded','false');});});
+    }
+    var els=document.querySelectorAll('.reveal');
+    if('IntersectionObserver' in window&&els.length){
+      var io=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target);}});},{threshold:0,rootMargin:'0px'});
+      els.forEach(function(el){io.observe(el);});
+    } else {els.forEach(function(el){el.classList.add('visible');});}
+    
+  })();
+  </script>
+</body>
+</html>

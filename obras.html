@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Obras realizadas por Grupo DEN — Proyectos residenciales, comerciales y civiles en Victoria, Entre Ríos." />
+  <title>Obras Realizadas | Grupo DEN</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+
+    /* ── HERO ──────────────────────────────────────── */
+    .page-hero {
+      padding-top: 72px;
+      min-height: 55vh;
+      display: flex;
+      align-items: flex-end;
+      position: relative;
+      overflow: hidden;
+      background: #0e0e0e;
+    }
+
+    /* ── OBRAS SECTION ─────────────────────────────── */
+    .obras-section {
+      padding: clamp(40px,6vw,80px) clamp(24px,5vw,80px);
+      background: #ffffff;
+    }
+
+    /* ── GRID ──────────────────────────────────────── */
+    .obras-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+    }
+    @media (max-width: 900px) { .obras-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 560px) { .obras-grid { grid-template-columns: 1fr; } }
+
+    /* ── CARD — padding-bottom trick garantiza altura ── */
+    .obra-card {
+      position: relative;
+      overflow: hidden;
+      background: #1c1c1c;
+      cursor: pointer;
+      padding-bottom: 72%; /* ratio 4:3 aprox */
+      height: 0;
+    }
+    .obra-card--tall {
+      padding-bottom: 0;
+      height: 560px;
+    }
+    @media (max-width: 900px) {
+      .obra-card--tall { height: 420px; }
+    }
+    @media (max-width: 560px) {
+      .obra-card { padding-bottom: 66%; }
+      .obra-card--tall { height: 320px; }
+    }
+
+    .obra-card img {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s cubic-bezier(0.16,1,0.3,1), opacity 0.35s;
+      opacity: 0.93;
+    }
+    .obra-card:hover img {
+      transform: scale(1.05);
+      opacity: 0.68;
+    }
+
+    /* overlay gradiente + info */
+    .obra-card-info {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 24px 20px 20px;
+      background: linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.0) 100%);
+      z-index: 2;
+    }
+    .obra-card-cat {
+      font-size: 9px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #b8986e;
+      font-weight: 600;
+      display: block;
+      margin-bottom: 4px;
+    }
+    .obra-card-title {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 19px;
+      font-weight: 400;
+      color: #ffffff;
+      line-height: 1.2;
+    }
+    .obra-card-sub {
+      font-size: 11px;
+      color: rgba(255,255,255,0.5);
+      font-weight: 300;
+      margin-top: 3px;
+    }
+
+    /* ícono expandir */
+    .obra-expand {
+      position: absolute;
+      top: 14px; right: 14px;
+      width: 32px; height: 32px;
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.22);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0;
+      transform: translateY(-4px);
+      transition: opacity 0.2s, transform 0.2s;
+      z-index: 2;
+    }
+    .obra-expand svg {
+      width: 13px; height: 13px;
+      stroke: #fff; fill: none;
+      stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+    }
+    .obra-card:hover .obra-expand { opacity: 1; transform: translateY(0); }
+
+    /* ── STATS ─────────────────────────────────────── */
+    .stats-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      background: #0e0e0e;
+    }
+    @media (max-width: 700px) { .stats-strip { grid-template-columns: repeat(2, 1fr); } }
+
+    .stat-item {
+      padding: clamp(28px,4vw,52px) clamp(20px,3vw,44px);
+      border-right: 1px solid rgba(255,255,255,0.07);
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-num {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: clamp(36px,5vw,58px);
+      font-weight: 300; color: #fff; line-height: 1; margin-bottom: 8px;
+    }
+    .stat-num em { font-style: italic; color: #c0271e; }
+    .stat-label {
+      font-size: 10px; letter-spacing: 0.18em;
+      text-transform: uppercase; color: rgba(255,255,255,0.35); font-weight: 400;
+    }
+
+    /* ── CTA ───────────────────────────────────────── */
+    .obras-cta-section {
+      background: #f0ede9;
+      padding: clamp(56px,7vw,96px) clamp(24px,5vw,80px);
+      display: flex; align-items: center;
+      justify-content: space-between; flex-wrap: wrap; gap: 32px;
+    }
+    .obras-cta-section h2 {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: clamp(28px,4vw,48px); font-weight: 300; line-height: 1.1;
+    }
+    .obras-cta-section h2 em { font-style: italic; color: #c0271e; }
+    .obras-cta-section p {
+      font-size: 14px; color: #888; font-weight: 300; margin-top: 10px; max-width: 380px;
+    }
+
+    /* ── LIGHTBOX ──────────────────────────────────── */
+    .lightbox {
+      position: fixed; inset: 0; z-index: 500;
+      background: rgba(8,8,8,0.96);
+      display: flex; align-items: center; justify-content: center;
+      padding: 24px;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.3s;
+    }
+    .lightbox.open { opacity: 1; pointer-events: all; }
+    .lightbox img {
+      max-width: 90vw; max-height: 88vh;
+      object-fit: contain;
+      transform: scale(0.95);
+      transition: transform 0.3s cubic-bezier(0.16,1,0.3,1);
+      position: static;
+      width: auto; height: auto;
+    }
+    .lightbox.open img { transform: scale(1); }
+    .lightbox-close {
+      position: absolute; top: 18px; right: 18px;
+      width: 42px; height: 42px;
+      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(255,255,255,0.06);
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .lightbox-close svg {
+      width: 15px; height: 15px;
+      stroke: #fff; fill: none; stroke-width: 2; stroke-linecap: round;
+    }
+    .lightbox-caption {
+      position: absolute; bottom: 20px; left: 50%;
+      transform: translateX(-50%);
+      font-size: 12px; color: rgba(255,255,255,0.45);
+      font-weight: 300; white-space: nowrap;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="navbar" id="navbar">
+    <a href="index.html" class="nav-logo" aria-label="Grupo DEN inicio">
+      <div class="nav-logo-mark"><span>GD</span></div>
+      <div class="nav-logo-text">
+        <strong>GrupoDen</strong>
+        <small>Propiedades y Desarrollo</small>
+      </div>
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="Menú" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navList">
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="obras.html" class="active">Obras</a></li>
+      <li><a href="acerca.html">Nosotros</a></li>
+      <li><a href="contacto.html">Contacto</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <header class="page-hero">
+    <div class="hero-grid-bg"></div>
+    <div class="hero-overlay"></div>
+    <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1600&q=80&auto=format&fit=crop" alt="" class="hero-img" />
+    <div class="hero-bar"></div>
+    <div class="hero-body">
+      <div class="eyebrow">
+        <span class="eyebrow-line"></span>
+        <span>Portafolio</span>
+      </div>
+      <h1>Obras <em>realizadas</em></h1>
+      <p>Cada proyecto es el resultado de un proceso meticuloso: planificación, ejecución y entrega de calidad.</p>
+    </div>
+  </header>
+
+  <!--
+    FILTER BAR — para reactivar: descomentá este bloque
+    y el bloque FILTER en el JS al final.
+
+  <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:28px clamp(24px,5vw,80px);background:#fff;border-bottom:1px solid rgba(14,14,14,0.10);">
+    <span style="font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:#888;font-weight:500;margin-right:8px;">Filtrar:</span>
+    <button class="filter-btn active" data-filter="all">Todos</button>
+    <button class="filter-btn" data-filter="residencial">Residencial</button>
+    <button class="filter-btn" data-filter="comercial">Comercial</button>
+    <button class="filter-btn" data-filter="civil">Civil</button>
+    <button class="filter-btn" data-filter="piscinas">Piscinas</button>
+  </div>
+  -->
+
+  <!-- OBRAS GRID -->
+  <section class="obras-section">
+    <div class="obras-grid">
+
+      <!--
+        AGREGAR OBRA: copiá un .obra-card, cambiá src, data-category, cat, title y sub.
+        Para altura doble: agregá clase "obra-card--tall".
+        Cuando tengas fotos propias reemplazá la URL de Unsplash por: images/obras/tu-foto.jpg
+      -->
+
+      <div class="obra-card obra-card--tall" data-category="residencial">
+        <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=900&q=80&auto=format&fit=crop" alt="Vivienda unifamiliar" />
+        <div class="obra-card-info">
+          <span class="obra-card-cat">Residencial</span>
+          <div class="obra-card-title">Vivienda unifamiliar</div>
+          <div class="obra-card-sub">Victoria, Entre Ríos</div>
+        </div>
+        <div class="obra-expand"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
+      </div>
+
+      <div class="obra-card" data-category="residencial">
+        <img src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=900&q=80&auto=format&fit=crop" alt="Edificio plurifamiliar" />
+        <div class="obra-card-info">
+          <span class="obra-card-cat">Residencial</span>
+          <div class="obra-card-title">Edificio plurifamiliar</div>
+          <div class="obra-card-sub">Victoria, Entre Ríos</div>
+        </div>
+        <div class="obra-expand"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
+      </div>
+
+      <div class="obra-card" data-category="comercial">
+        <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=900&q=80&auto=format&fit=crop" alt="Local comercial" />
+        <div class="obra-card-info">
+          <span class="obra-card-cat">Comercial</span>
+          <div class="obra-card-title">Local comercial</div>
+          <div class="obra-card-sub">Victoria, Entre Ríos</div>
+        </div>
+        <div class="obra-expand"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
+      </div>
+
+      <div class="obra-card" data-category="piscinas">
+        <img src="https://images.unsplash.com/photo-1523217582562-09d0def993a6?w=900&q=80&auto=format&fit=crop" alt="Piscina residencial" />
+        <div class="obra-card-info">
+          <span class="obra-card-cat">Piscinas</span>
+          <div class="obra-card-title">Piscina residencial</div>
+          <div class="obra-card-sub">Country, Victoria</div>
+        </div>
+        <div class="obra-expand"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
+      </div>
+
+      <div class="obra-card" data-category="civil">
+        <img src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=900&q=80&auto=format&fit=crop" alt="Obra civil" />
+        <div class="obra-card-info">
+          <span class="obra-card-cat">Civil</span>
+          <div class="obra-card-title">Obra civil</div>
+          <div class="obra-card-sub">Victoria, Entre Ríos</div>
+        </div>
+        <div class="obra-expand"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
+      </div>
+
+      <div class="obra-card" data-category="residencial">
+        <img src="https://images.unsplash.com/photo-1572120360610-d971b9d7767c?w=900&q=80&auto=format&fit=crop" alt="Vivienda country" />
+        <div class="obra-card-info">
+          <span class="obra-card-cat">Residencial</span>
+          <div class="obra-card-title">Vivienda country</div>
+          <div class="obra-card-sub">Victoria, Entre Ríos</div>
+        </div>
+        <div class="obra-expand"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
+      </div>
+
+      <div class="obra-card" data-category="residencial">
+        <img src="https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?w=900&q=80&auto=format&fit=crop" alt="Ampliación residencial" />
+        <div class="obra-card-info">
+          <span class="obra-card-cat">Residencial</span>
+          <div class="obra-card-title">Ampliación residencial</div>
+          <div class="obra-card-sub">Victoria, Entre Ríos</div>
+        </div>
+        <div class="obra-expand"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
+      </div>
+
+      <div class="obra-card" data-category="civil">
+        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&q=80&auto=format&fit=crop" alt="Nave industrial" />
+        <div class="obra-card-info">
+          <span class="obra-card-cat">Civil</span>
+          <div class="obra-card-title">Nave industrial</div>
+          <div class="obra-card-sub">Victoria, Entre Ríos</div>
+        </div>
+        <div class="obra-expand"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
+      </div>
+
+      <div class="obra-card" data-category="piscinas">
+        <img src="https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?w=900&q=80&auto=format&fit=crop" alt="Piscina infinity" />
+        <div class="obra-card-info">
+          <span class="obra-card-cat">Piscinas</span>
+          <div class="obra-card-title">Piscina infinity</div>
+          <div class="obra-card-sub">Country, Victoria</div>
+        </div>
+        <div class="obra-expand"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats-strip">
+    <div class="stat-item">
+      <div class="stat-num">+<em>200</em></div>
+      <div class="stat-label">Obras ejecutadas</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num"><em>20</em>+</div>
+      <div class="stat-label">Años de experiencia</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num"><em>5</em></div>
+      <div class="stat-label">Rubros de servicio</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">100<em>%</em></div>
+      <div class="stat-label">Compromiso legal</div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="obras-cta-section">
+    <div>
+      <h2>¿Querés que tu obra sea <em>la próxima</em>?</h2>
+      <p>Contanos tu proyecto y te acompañamos desde el diseño hasta la entrega.</p>
+    </div>
+    <a href="contacto.html" class="btn btn--red">
+      Iniciar evaluación
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+    </a>
+  </div>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true">
+    <button class="lightbox-close" id="lightboxClose" aria-label="Cerrar">
+      <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <img src="" alt="" id="lightboxImg" />
+    <div class="lightbox-caption" id="lightboxCaption"></div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-main">
+      <div class="footer-brand">
+        <a href="index.html" class="footer-logo">
+          <div class="footer-logo-mark"><span>GD</span></div>
+          <div class="footer-logo-text">
+            <strong>GrupoDen</strong>
+            <small>Propiedades y Desarrollo</small>
+          </div>
+        </a>
+        <p>Diseño, ejecución y desarrollo inmobiliario en Victoria, Entre Ríos.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Páginas</div>
+        <ul class="footer-links">
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="obras.html">Obras realizadas</a></li>
+          <li><a href="acerca.html">Nosotros</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Contacto</div>
+        <div class="footer-contact-item">
+          <div class="fc-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#b8986e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="11" height="11"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.09 9.81 19.79 19.79 0 01.06 1.18 2 2 0 012.03 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z"/></svg>
+          </div>
+          <div>
+            <a href="tel:+5493436619727">+54 9 3436 619727</a><br />
+            <a href="tel:+5493436414641">+54 9 3436 414641</a>
+          </div>
+        </div>
+        <div class="footer-contact-item">
+          <div class="fc-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#b8986e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="11" height="11"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#99;&#111;&#110;&#116;&#97;&#99;&#116;&#111;&#103;&#114;&#117;&#112;&#111;&#100;&#101;&#110;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">&#99;&#111;&#110;&#116;&#97;&#99;&#116;&#111;&#103;&#114;&#117;&#112;&#111;&#100;&#101;&#110;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a>
+        </div>
+        <div class="footer-contact-item">
+          <div class="fc-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#b8986e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="11" height="11"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <span>Victoria, Entre Ríos</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2025 Grupo DEN S.A. &middot; Victoria, Entre Ríos</p>
+      <div class="footer-social">
+        <span>Instagram</span>
+        <a href="https://instagram.com/grupo.den" target="_blank" rel="noopener">@grupo.den</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+  (function(){
+    'use strict';
+
+    // Navbar scroll shadow
+    var navbar = document.getElementById('navbar');
+    var toggle = document.getElementById('navToggle');
+    var navList = document.getElementById('navList');
+
+    if(navbar){
+      window.addEventListener('scroll', function(){
+        navbar.classList.toggle('scrolled', window.scrollY > 20);
+      }, {passive: true});
+    }
+
+    // Mobile menu
+    if(toggle && navList){
+      toggle.addEventListener('click', function(){
+        var o = navList.classList.toggle('open');
+        toggle.classList.toggle('open', o);
+        toggle.setAttribute('aria-expanded', String(o));
+      });
+      navList.querySelectorAll('a').forEach(function(a){
+        a.addEventListener('click', function(){
+          navList.classList.remove('open');
+          toggle.classList.remove('open');
+          toggle.setAttribute('aria-expanded','false');
+        });
+      });
+    }
+
+    // Lightbox
+    var lb      = document.getElementById('lightbox');
+    var lbImg   = document.getElementById('lightboxImg');
+    var lbCap   = document.getElementById('lightboxCaption');
+    var lbClose = document.getElementById('lightboxClose');
+
+    document.querySelectorAll('.obra-card').forEach(function(card){
+      card.addEventListener('click', function(){
+        var img   = card.querySelector('img');
+        var title = (card.querySelector('.obra-card-title') || {}).textContent || '';
+        var sub   = (card.querySelector('.obra-card-sub')   || {}).textContent || '';
+        if(!img) return;
+        lbImg.src = img.src;
+        lbImg.alt = img.alt;
+        lbCap.textContent = sub ? title + ' \u00b7 ' + sub : title;
+        lb.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      });
+    });
+
+    function closeLb(){
+      lb.classList.remove('open');
+      document.body.style.overflow = '';
+      lbImg.src = '';
+    }
+    if(lbClose) lbClose.addEventListener('click', closeLb);
+    lb.addEventListener('click', function(e){ if(e.target === lb) closeLb(); });
+    document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeLb(); });
+
+    /*
+      FILTER — para reactivar: descomentá este bloque
+      y el HTML del filter-bar que está comentado arriba.
+
+    var filterBtns = document.querySelectorAll('.filter-btn');
+    var cards = document.querySelectorAll('.obra-card');
+    filterBtns.forEach(function(btn){
+      btn.addEventListener('click', function(){
+        filterBtns.forEach(function(b){ b.classList.remove('active'); });
+        btn.classList.add('active');
+        var cat = btn.dataset.filter;
+        cards.forEach(function(card){
+          card.style.display = (cat === 'all' || card.dataset.category === cat) ? '' : 'none';
+        });
+      });
+    });
+    */
+
+  })();
+  </script>
+
+</body>
+</html>
