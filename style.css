@@ -123,42 +123,32 @@ body {
 .nav-toggle.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
 
 @media (max-width: 768px) {
+  /* Mostrar hamburguesa */
   .nav-toggle { display: flex; z-index: 201; }
+
+  /* CLAVE: ocultar los links con display:none por defecto en móvil */
   .nav-links {
+    display: none;
     position: fixed;
     top: 72px; left: 0; right: 0;
     background: var(--surface);
     border-bottom: 1px solid var(--border);
-    flex-direction: column; gap: 0;
-    padding: 8px 0 20px;
-    transform: translateY(-110%);
-    opacity: 0;
-    pointer-events: none;
-    visibility: hidden;
-    transition: transform 0.35s var(--ease-out), opacity 0.25s, visibility 0.35s;
+    flex-direction: column;
+    padding: 8px 0 16px;
     box-shadow: 0 16px 40px rgba(0,0,0,0.08);
     z-index: 199;
   }
+  /* Solo mostrar cuando está abierto */
   .nav-links.open {
-    transform: translateY(0);
-    opacity: 1;
-    pointer-events: all;
-    visibility: visible;
+    display: flex;
   }
   .nav-links li a {
     display: block;
     padding: 16px var(--gutter);
-    font-size: 14px;
-    letter-spacing: 0.12em;
+    font-size: 13px;
     border-bottom: 1px solid var(--border);
   }
   .nav-links li:last-child a { border-bottom: none; }
-  .navbar { padding: 0 20px; }
-}
-
-@media (max-width: 480px) {
-  .nav-logo-text small { display: none; }
-  .nav-logo-text strong { font-size: 15px; }
 }
 
 /* ─── HERO BASE ───────────────────────────────────────────── */
