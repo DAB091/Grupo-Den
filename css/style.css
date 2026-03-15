@@ -123,24 +123,32 @@ body {
 .nav-toggle.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
 
 @media (max-width: 768px) {
-  .nav-toggle { display: flex; }
+  /* Mostrar hamburguesa */
+  .nav-toggle { display: flex; z-index: 201; }
+
+  /* CLAVE: ocultar los links con display:none por defecto en móvil */
   .nav-links {
+    display: none;
     position: fixed;
     top: 72px; left: 0; right: 0;
     background: var(--surface);
     border-bottom: 1px solid var(--border);
-    flex-direction: column; gap: 0;
+    flex-direction: column;
     padding: 8px 0 16px;
-    transform: translateY(-110%);
-    transition: transform 0.35s var(--ease-out);
     box-shadow: 0 16px 40px rgba(0,0,0,0.08);
+    z-index: 199;
   }
-  .nav-links.open { transform: translateY(0); }
+  /* Solo mostrar cuando está abierto */
+  .nav-links.open {
+    display: flex;
+  }
   .nav-links li a {
     display: block;
-    padding: 14px var(--gutter);
+    padding: 16px var(--gutter);
     font-size: 13px;
+    border-bottom: 1px solid var(--border);
   }
+  .nav-links li:last-child a { border-bottom: none; }
 }
 
 /* ─── HERO BASE ───────────────────────────────────────────── */
@@ -161,13 +169,13 @@ body {
 .hero-overlay {
   position: absolute; inset: 0; z-index: 1;
   background:
-    linear-gradient(160deg, rgba(192,39,30,0.16) 0%, transparent 50%),
-    linear-gradient(to bottom, rgba(14,14,14,0.45) 0%, rgba(14,14,14,0.88) 100%);
+    linear-gradient(160deg, rgba(192,39,30,0.10) 0%, transparent 50%),
+    linear-gradient(to bottom, rgba(14,14,14,0.00) 0%, rgba(14,14,14,0.00) 100%);
 }
 .hero-img {
   position: absolute; inset: 0; z-index: 0;
   width: 100%; height: 100%; object-fit: cover;
-  opacity: 0.35;
+  opacity: 1;
 }
 .hero-bar {
   position: absolute;
@@ -314,18 +322,20 @@ body {
 }
 
 /* ─── REVEAL ANIMATIONS ───────────────────────────────────── */
-.reveal {
+/* Sin JS todo es visible. Las animaciones solo corren cuando    */
+/* main.js agrega 'js-ready' al <html>.                         */
+.js-ready .reveal {
   opacity: 0;
   transform: translateY(28px);
   transition: opacity 0.85s var(--ease-out), transform 0.85s var(--ease-out);
 }
-.reveal.visible { opacity: 1; transform: translateY(0); }
-.reveal-d1 { transition-delay: 0.08s; }
-.reveal-d2 { transition-delay: 0.16s; }
-.reveal-d3 { transition-delay: 0.24s; }
-.reveal-d4 { transition-delay: 0.32s; }
-.reveal-d5 { transition-delay: 0.40s; }
-.reveal-d6 { transition-delay: 0.48s; }
+.js-ready .reveal.visible { opacity: 1; transform: translateY(0); }
+.js-ready .reveal-d1 { transition-delay: 0.08s; }
+.js-ready .reveal-d2 { transition-delay: 0.16s; }
+.js-ready .reveal-d3 { transition-delay: 0.24s; }
+.js-ready .reveal-d4 { transition-delay: 0.32s; }
+.js-ready .reveal-d5 { transition-delay: 0.40s; }
+.js-ready .reveal-d6 { transition-delay: 0.48s; }
 
 /* ─── FOOTER ──────────────────────────────────────────────── */
 .site-footer {
